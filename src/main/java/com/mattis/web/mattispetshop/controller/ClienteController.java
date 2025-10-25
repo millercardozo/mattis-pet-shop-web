@@ -1,49 +1,41 @@
 package com.mattis.web.mattispetshop.controller;
 
-import com.mattis.web.mattispetshop.model.Cliente;
-import com.mattis.web.mattispetshop.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.mattis.web.mattispetshop.model.Cliente;
+import com.mattis.web.mattispetshop.service.ClienteService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin(origins = "*") // permite acceder desde front-end o Postman
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
-    // Listar todos los clientes
-    @GetMapping
-    public List<Cliente> listar() {
+    // Listar clientes
+    @GetMapping("/listar")
+    public List<Cliente> listarClientes() {
         return clienteService.listarClientes();
     }
 
-    // Buscar cliente por ID
-    @GetMapping("/{id}")
-    public Optional<Cliente> obtenerPorId(@PathVariable Long id) {
-        return clienteService.obtenerCliente(id);
+    // Registrar cliente
+    @PostMapping("/registrar")
+    public Cliente registrarCliente(@RequestBody Cliente cliente) {
+        return clienteService.registrarCliente(cliente);
     }
 
-    // Agregar nuevo cliente
-    @PostMapping
-    public Cliente agregar(@RequestBody Cliente cliente) {
-        return clienteService.guardarCliente(cliente);
-    }
-
-    // Actualizar cliente existente
-    @PutMapping("/{id}")
-    public Cliente actualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
-        cliente.setIdCliente(id);
-        return clienteService.guardarCliente(cliente);
+    // Actualizar cliente
+    @PutMapping("/actualizar")
+    public Cliente actualizarCliente(@RequestBody Cliente cliente) {
+        return clienteService.actualizarCliente(cliente);
     }
 
     // Eliminar cliente
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    @DeleteMapping("/eliminar/{id}")
+    public void eliminarCliente(@PathVariable Long id) {
         clienteService.eliminarCliente(id);
     }
 }

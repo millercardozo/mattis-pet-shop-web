@@ -67,5 +67,21 @@ async function agregarCliente() {
 }
 
 // Eliminar un cliente por ID
-async function eliminarClien
-;
+async function eliminarCliente(idCliente) {
+  if (!confirm("¿Seguro que deseas eliminar este cliente?")) return;
+
+  try {
+    const res = await fetch(`${API_URL}/${idCliente}`, {
+      method: "DELETE"
+    });
+
+    if (!res.ok) throw new Error("Error al eliminar cliente");
+
+    await cargarClientes();
+  } catch (error) {
+    console.error("❌ Error al eliminar cliente:", error);
+  }
+}
+
+// Cargar clientes al iniciar la página
+window.addEventListener("DOMContentLoaded", cargarClientes);

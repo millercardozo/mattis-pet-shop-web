@@ -1,9 +1,10 @@
 package com.mattis.web.mattispetshop.service;
 
-import com.mattis.web.mattispetshop.model.Cliente;
-import com.mattis.web.mattispetshop.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.mattis.web.mattispetshop.model.Cliente;
+import com.mattis.web.mattispetshop.repository.ClienteRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,23 +14,19 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    // Listar todos
-    public List<Cliente> listarClientes() {
-        return clienteRepository.findAll();
-    }
+    // Listar todos los clientes
+    public List<Cliente> listarClientes() { return clienteRepository.findAll(); }
 
-    // Buscar por ID
-    public Optional<Cliente> obtenerCliente(Long id) {
-        return clienteRepository.findById(id);
-    }
+    // Registrar cliente
+    public Cliente registrarCliente(Cliente cliente) { return clienteRepository.save(cliente); }
 
-    // Guardar (insertar o actualizar)
-    public Cliente guardarCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
-    }
+    // Actualizar cliente
+    public Cliente actualizarCliente(Cliente cliente) { return clienteRepository.save(cliente); }
 
-    // Eliminar por ID
-    public void eliminarCliente(Long id) {
-        clienteRepository.deleteById(id);
-    }
+    // Buscar por id
+    public Optional<Cliente> buscarPorId(Long id) { return clienteRepository.findById(id); }
+
+    // Eliminar cliente
+    public void eliminarCliente(Long id) { clienteRepository.deleteById(id); }
 }
+
